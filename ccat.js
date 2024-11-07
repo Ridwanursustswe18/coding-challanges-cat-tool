@@ -24,4 +24,29 @@ else if(numberOfArguments == 1){
         }
     });
 }
-
+else if(numberOfArguments == 2) {
+    const fileName1 = process.argv[2];
+    const fileName2 = process.argv[3];
+    let fileContents = '';
+    Promise.all([
+        new Promise((resolve, reject) => {
+            fs.readFile(fileName1, 'utf8', (err, data) => {
+                if (err) reject(err);
+                else resolve(data);
+            });
+        }),
+        new Promise((resolve, reject) => {
+            fs.readFile(fileName2, 'utf8', (err, data) => {
+                if (err) reject(err);
+                else resolve(data);
+            });
+        })
+    ])
+    .then(([data1, data2]) => {
+        fileContents = data1 + data2;
+        console.log(fileContents);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
