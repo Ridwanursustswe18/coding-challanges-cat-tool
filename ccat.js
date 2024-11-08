@@ -14,7 +14,7 @@ if(numberOfArguments == 1 && process.argv[2] == '-'){
   });
 
 }
-else if(numberOfArguments == 1 && process.argv[2] == '-n'){
+else if(numberOfArguments == 1 && (process.argv[2] == '-n' || process.argv[2] == '-b')){
     const readLine = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -23,11 +23,21 @@ else if(numberOfArguments == 1 && process.argv[2] == '-n'){
     let inputData = '';
     let lineNumber = 1;
   readLine.on('line', (line) => {
+    if(process.argv[2] == '-b'){
+    if(line != ''){
+        inputData += lineNumber +"  "+ line + '\n';
+        lineNumber++;
+    }else{
+        inputData += line + '\n';
+    }
+}else{
     inputData += lineNumber +"  "+ line + '\n';
     lineNumber++;
+}
   });
   readLine.on('close', () => {
     console.log(inputData);
+    
   });
 }
 else if(numberOfArguments == 1){
