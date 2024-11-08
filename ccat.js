@@ -14,6 +14,22 @@ if(numberOfArguments == 1 && process.argv[2] == '-'){
   });
 
 }
+else if(numberOfArguments == 1 && process.argv[2] == '-n'){
+    const readLine = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        terminal:false,    
+    });
+    let inputData = '';
+    let lineNumber = 1;
+  readLine.on('line', (line) => {
+    inputData += lineNumber +"  "+ line + '\n';
+    lineNumber++;
+  });
+  readLine.on('close', () => {
+    console.log(inputData);
+  });
+}
 else if(numberOfArguments == 1){
     const fileName = process.argv[2];
     fs.readFile(fileName, 'utf8', (err, data) => {
