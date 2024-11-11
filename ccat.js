@@ -1,20 +1,7 @@
 const numberOfArguments = process.argv.length - 2;
 const fs = require('fs');
 const readline = require('node:readline');
-if(numberOfArguments == 1 && process.argv[2] == '-'){
-    const readLine = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        
-    });
-    let inputData = '';
-
-  readLine.on('line', (line) => {
-    inputData += line + '\n';
-  });
-
-}
-else if(numberOfArguments == 1 && (process.argv[2] == '-n' || process.argv[2] == '-b')){
+if(numberOfArguments == 1 && (process.argv[2] == '-n' || process.argv[2] == '-b' || process.argv[2] == '-' )){
     const readLine = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -24,16 +11,19 @@ else if(numberOfArguments == 1 && (process.argv[2] == '-n' || process.argv[2] ==
     let lineNumber = 1;
   readLine.on('line', (line) => {
     if(process.argv[2] == '-b'){
-    if(line != ''){
-        inputData += lineNumber +"  "+ line + '\n';
-        lineNumber++;
-    }else{
+        if(line != ''){
+            inputData += lineNumber +"  "+ line + '\n';
+            lineNumber++;
+        }else{
+            inputData += line + '\n';
+        }
+    }else if(process.argv[2] == '-'){
         inputData += line + '\n';
     }
-}else{
-    inputData += lineNumber +"  "+ line + '\n';
-    lineNumber++;
-}
+    else{
+        inputData += lineNumber +"  "+ line + '\n';
+        lineNumber++;
+    }
   });
   readLine.on('close', () => {
     console.log(inputData);
