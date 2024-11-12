@@ -33,11 +33,11 @@ if(numberOfArguments == 1 && (process.argv[2] == '-n' || process.argv[2] == '-b'
 else if(numberOfArguments == 1){
     const fileName = process.argv[2];
     fs.readFile(fileName, 'utf8', (err, data) => {
-        try{
-            console.log(data);
-        }catch(err){
-            console.log(err);
+        if(err){
+            return err;
         }
+        console.log(data);
+        
     });
 }
 else if(numberOfArguments == 2) {
